@@ -69,6 +69,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        animator.SetBool("IsGrounded", false);
+            animator.SetBool("IsGrounded", false);
+       
     }
 }

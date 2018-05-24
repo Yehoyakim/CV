@@ -64,12 +64,16 @@ public class CharacterController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        animator.SetBool("IsGrounded", true);
+        if (collision.transform.tag != "Wall")
+        {
+            animator.SetBool("IsGrounded", true);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        if (collision.transform.tag != "Wall") { 
             animator.SetBool("IsGrounded", false);
-       
+        }
     }
 }

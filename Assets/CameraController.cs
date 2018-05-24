@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour {
 
     [Range(0,1)]
     public float cameraSpeed;
+    [Range(0, 10)]
+    public float height;
 
 	// Use this for initialization
 	void Start () {
@@ -18,7 +20,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate() {
-        Vector3 target = player.transform.position - new Vector3(0,0,10) ;
+        Vector3 target = player.transform.position - new Vector3(0,-height,10) ;
         transform.position = Vector3.Lerp(transform.position, target, cameraSpeed);
 	}
 }

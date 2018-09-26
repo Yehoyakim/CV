@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
 	public float maxSpeed;
     public float speed;
     public float jumpForce;
+    public float groundCheckDistance;
 
     // Use this for initialization
     void Start()
@@ -36,12 +37,27 @@ public class CharacterController : MonoBehaviour
         }
 
 
-        if (Input.GetKey(KeyCode.W) && animator.GetBool("IsGrounded"))
+        if (Input.GetKeyDown(KeyCode.W) && animator.GetBool("IsGrounded"))
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             animator.Play("salto");
         }
 
+        groundCheck();
+
+    }
+
+    private void groundCheck()
+    {
+        Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, Color.red);
+        if (Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance))
+        {
+            animator.SetBool("IsGrounded", true);
+        }
+        else
+        {
+            animator.SetBool("IsGrounded", false);
+        }
     }
 
     private void move(Vector2 direction)
@@ -60,20 +76,5 @@ public class CharacterController : MonoBehaviour
             sRenderer.flipX = true;
         }
 		}
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.tag != "Wall")
-        {
-            animator.SetBool("IsGrounded", true);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.transform.tag != "Wall") { 
-            animator.SetBool("IsGrounded", false);
-        }
     }
 }

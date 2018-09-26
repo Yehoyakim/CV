@@ -77,4 +77,15 @@ public class CharacterController : MonoBehaviour
         }
 		}
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        print(other.name);
+        if (other.tag == "Coin")
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+    
 }
